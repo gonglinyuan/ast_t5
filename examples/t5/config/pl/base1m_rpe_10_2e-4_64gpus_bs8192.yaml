@@ -1,0 +1,58 @@
+# @package _group_
+common:
+  fp16: true
+  log_format: json
+  log_interval: 200
+  use_plasma_view: false
+  tensorboard_logdir: tb
+
+checkpoint:
+  no_epoch_checkpoints: true
+  save_interval_updates: 5000
+  keep_interval_updates: 3
+  keep_interval_updates_pattern: 125000
+
+task:
+  _name: t5_mixture
+  data: ???
+  sample_break_mode: eos
+  tokens_per_sample: 1024
+  min_tokens_per_sample: 4
+  empty_prob: 0.0
+  mask_multiple_length: 10
+  shorten_method: random_crop
+  shorten_data_split_list: train
+
+criterion:
+  _name: label_smoothed_cross_entropy
+  report_accuracy: true
+
+dataset:
+  num_workers: 2
+  max_tokens: 8192
+  batch_size: 1024  # min seq_len = 8
+  ignore_unused_valid_subsets: true
+  skip_invalid_size_inputs_valid_test: true
+  valid_subset: valid_python,valid_java,valid_cpp,valid_csharp,valid_text
+
+optimizer:
+  _name: adam
+  weight_decay: 0.01
+  adam_betas: (0.9,0.98)
+  adam_eps: 1e-06
+
+lr_scheduler:
+  _name: polynomial_decay
+  warmup_updates: 10000
+
+optimization:
+  clip_norm: 2.0
+  lr: [0.0002]
+  max_update: 1000000
+  update_freq: [2]  # Assuming 64 GPUs
+
+model:
+  _name: transformer_t5_base_rpe
+  max_positions: 1280
+  encoder_rp_bins: 128
+  encoder_rp_max_dist: 256
