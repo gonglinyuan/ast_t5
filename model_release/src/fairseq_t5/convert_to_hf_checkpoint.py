@@ -2,9 +2,11 @@ import argparse
 import os
 
 import torch
-from .tokenization_ast_t5 import ASTT5Tokenizer
+from huggingface_hub import upload_file
+
 from .configuration_fairseq_t5 import FairseqT5Config
 from .modeling_fairseq_t5 import FairseqT5ForConditionalGeneration
+from .tokenization_ast_t5 import ASTT5Tokenizer
 
 
 def main():
@@ -12,6 +14,7 @@ def main():
     parser.add_argument("in_path", type=str)
     parser.add_argument("--dict_path", type=str)
     parser.add_argument("--out_path", type=str)
+    parser.add_argument("--hub_model_name", type=str)
     args = parser.parse_args()
 
     print(f"Loading fairseq state dictionary")
@@ -225,6 +228,20 @@ def main():
     os.makedirs(args.out_path, exist_ok=True)
     new_t5_model.save_pretrained(args.out_path, state_dict=new_state_dict)
     tokenizer.save_pretrained(args.out_path)
+
+    if hasattr(args, "hub_model_name") and args.hub_model_name is not None:
+        FairseqT5Config.register_for_auto_class()
+        new_t5_model.register_for_auto_class("AutoModelForSeq2SeqLM")
+        tokenizer.register_for_auto_class("AutoTokenizer")
+        new_t5_model.push_to_hub(args.hub_model_name)
+        tokenizer.push_to_hub(args.hub_model_name)
+        fairseq_t5_root = os.path.dirname(os.path.abspath(__name__))
+        for filename in ["fairseq_dictionary.py", "tokenization_ast_t5.py"]:
+            upload_file(
+                path_or_fileobj=os.path.join(fairseq_t5_root, filename),
+                path_in_repo=filename,
+                repo_id="gonglinyuan/" + args.hub_model_name
+            )
 
 
 if __name__ == '__main__':
