@@ -37,6 +37,8 @@ def main():
         num_decoder_layers=fairseq_cfg['model']['decoder_layers'],
         num_heads=fairseq_cfg['model']['encoder_attention_heads'],
         relative_attention_num_buckets=fairseq_cfg['model']['encoder_rp_bins'],
+        relative_attention_max_distance=fairseq_cfg['model']['encoder_rp_max_dist'],
+        max_positions=fairseq_cfg['model']['max_positions'],
         dropout_rate=fairseq_cfg['model']['dropout'],
         layer_norm_epsilon=1e-5,
         initializer_factor=1.0,
