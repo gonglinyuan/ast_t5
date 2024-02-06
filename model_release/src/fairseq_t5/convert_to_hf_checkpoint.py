@@ -225,6 +225,7 @@ def main():
 
     print('Saving t5 model')
     os.makedirs(args.out_path, exist_ok=True)
+    new_t5_model.load_state_dict(new_state_dict)
     new_t5_model.save_pretrained(args.out_path, state_dict=new_state_dict)
     tokenizer.save_pretrained(args.out_path)
 
@@ -232,7 +233,6 @@ def main():
         FairseqT5Config.register_for_auto_class()
         new_t5_model.register_for_auto_class("AutoModelForSeq2SeqLM")
         tokenizer.register_for_auto_class("AutoTokenizer")
-        new_t5_model.load_state_dict(new_state_dict)
         new_t5_model.push_to_hub(args.hub_model_name)
         tokenizer.push_to_hub(args.hub_model_name)
 
