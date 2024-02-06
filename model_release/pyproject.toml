@@ -1,0 +1,15 @@
+[build-system]
+requires = ["setuptools"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "fairseq_t5"
+version = "0.0.1"
+dependencies = [
+    "torch>=1.12",
+    "transformers>=4.17",
+    "omegaconf<2.1"
+]
+
+[project.scripts]
+convert_to_hf_checkpoint = "fairseq_t5:convert_to_hf_checkpoint"
