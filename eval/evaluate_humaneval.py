@@ -2,13 +2,21 @@ import argparse
 import json
 from collections import Counter, defaultdict
 from concurrent.futures import ThreadPoolExecutor, as_completed
-from typing import List
+from typing import Dict, Iterable, List, Union
 
 import numpy as np
 import tqdm
-from human_eval.data import HUMAN_EVAL, maybe_stream_jsonl, read_problems
+from human_eval.data import HUMAN_EVAL, read_problems, stream_jsonl
 from human_eval.evaluation import estimate_pass_at_k
 from human_eval.execution import check_correctness
+
+
+def maybe_stream_jsonl(filename_or_list: Union[str, List[Dict]]) -> Iterable[Dict]:
+    if isinstance(filename_or_list, str):
+        return stream_jsonl(filename_or_list)
+    else:
+        for item in filename_or_list:
+            yield item
 
 
 def evaluate_functional_correctness(
