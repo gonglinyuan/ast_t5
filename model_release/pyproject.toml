@@ -8,7 +8,8 @@ version = "0.0.1"
 dependencies = [
     "torch>=1.12",
     "transformers>=4.17",
-    "omegaconf<2.1"
+    "omegaconf<2.1",
+    "tiktoken==0.5.2"
 ]
 
 [project.scripts]
