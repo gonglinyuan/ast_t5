@@ -68,7 +68,7 @@ def main():
         with torch.no_grad():
             gen_out = model.generate(
                 **batch,
-                num_beams=4,
+                num_beams=10,
                 length_penalty=0.5,
                 num_return_sequences=1,
                 max_length=args.max_tgt_len
