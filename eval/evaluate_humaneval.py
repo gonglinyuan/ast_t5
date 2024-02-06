@@ -84,6 +84,30 @@ def evaluate_functional_correctness(
     return pass_at_k, list(combine_results())
 
 
+def maybe_increase_indent(completion):
+    lines = completion.splitlines()
+    for i in range(len(lines)):
+        if (
+            lines[i].startswith("def")
+            or lines[i].startswith("class")
+            or lines[i].startswith("import")
+            or lines[i].startswith("print")
+        ):
+            lines = lines[:i]
+            break
+    need_indent = False
+    for i in range(1, len(lines)):
+        if not lines[i].startswith("    "):
+            need_indent = True
+    if need_indent:
+        for i in range(len(lines)):
+            lines[i] = "    " + lines[i]
+    else:
+        if not lines[0].startswith("    "):
+            lines[0] = "    " + lines[0]
+    return "\n".join(lines) + "\n"
+
+
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("out_path", type=str)
@@ -92,7 +116,7 @@ def main():
     with open(args.out_path, "r", encoding="utf-8") as f:
         hyp_top1 = json.load(f)
     for i in range(len(hyp_top1)):
-        hyp_top1[i]['completion'] = "    " + hyp_top1[i]['completion'][len('<sen001>'):]
+        hyp_top1[i]['completion'] = maybe_increase_indent(hyp_top1[i]['completion'][len('<sen001>'):])
         hyp_top1[i]['task_id'] = f"HumanEval/{i}"
     result, full_result = evaluate_functional_correctness(
         hyp_top1,
