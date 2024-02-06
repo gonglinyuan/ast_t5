@@ -6,6 +6,7 @@ import datasets
 import torch
 from datasets import load_dataset
 from torch.utils.data import DataLoader
+from tqdm import tqdm
 from transformers import AutoModelForSeq2SeqLM, AutoTokenizer, DataCollatorForSeq2Seq
 
 
@@ -62,7 +63,7 @@ def main():
     model.cuda()
 
     outputs_top1 = []
-    for batch in eval_dataloader:
+    for batch in tqdm(eval_dataloader):
         batch.to(model.device)
         with torch.no_grad():
             gen_out = model.generate(
