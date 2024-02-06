@@ -103,7 +103,7 @@ def maybe_increase_indent(completion):
         for i in range(len(lines)):
             lines[i] = "    " + lines[i]
     else:
-        if not lines[0].startswith("    "):
+        if lines and not lines[0].startswith("    "):
             lines[0] = "    " + lines[0]
     return "\n".join(lines) + "\n"
 
