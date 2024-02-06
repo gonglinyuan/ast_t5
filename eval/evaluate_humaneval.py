@@ -92,7 +92,7 @@ def main():
     with open(args.out_path, "r", encoding="utf-8") as f:
         hyp_top1 = json.load(f)
     for i in range(len(hyp_top1)):
-        hyp_top1[i]['completion'] = hyp_top1[i]['completion'][len('<sen001>'):]
+        hyp_top1[i]['completion'] = "    " + hyp_top1[i]['completion'][len('<sen001>'):]
         hyp_top1[i]['task_id'] = f"HumanEval/{i}"
     result, full_result = evaluate_functional_correctness(
         hyp_top1,
