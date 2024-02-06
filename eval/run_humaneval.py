@@ -23,16 +23,16 @@ def process_generation_example(tokenizer, max_len, examples):
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("model_name_or_path", type=str)
-    parser.add_argument("--max_src_len", type=int)
-    parser.add_argument("--max_tgt_len", type=int)
-    parser.add_argument("--batch_size", type=int)
+    parser.add_argument("--max_src_len", type=int, default=1024)
+    parser.add_argument("--max_tgt_len", type=int, default=256)
+    parser.add_argument("--batch_size", type=int, default=1)
     parser.add_argument("--out_path", type=str)
     args = parser.parse_args()
 
     ds = load_dataset("openai_humaneval")
     raw_dataset = datasets.Dataset.from_list(list(ds['test']))
 
-    tokenizer = AutoTokenizer.from_pretrained(args.model_name_or_path)
+    tokenizer = AutoTokenizer.from_pretrained(args.model_name_or_path, trust_remote_code=True)
     process_fn = functools.partial(process_generation_example, tokenizer, args.max_src_len)
     eval_dataset = raw_dataset.map(
         process_fn,
@@ -56,7 +56,7 @@ def main():
         batch_size=args.batch_size
     )
 
-    model = AutoModelForSeq2SeqLM.from_pretrained(args.model_name_or_path)
+    model = AutoModelForSeq2SeqLM.from_pretrained(args.model_name_or_path, trust_remote_code=True)
     model.eval()
     model.half()
     model.cuda()
