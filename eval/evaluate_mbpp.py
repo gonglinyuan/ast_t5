@@ -14,6 +14,7 @@ from typing import Dict, Optional
 
 import astunparse
 import datasets
+from tqdm import tqdm
 
 
 def convert_mbpp_example(sample):
@@ -262,7 +263,7 @@ def evaluate_functional_correctness(test_data, model_outputs):
 
     results = []
     pass_count = 0
-    for item in test_data:
+    for item in tqdm(test_data):
         task_id = item["task_id"]
         prompt = item["prompt"]
         test_program = item["test_program"]
