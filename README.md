@@ -44,3 +44,22 @@ Note: The `ast_t5_base` model is not an instruct model. It works best with speci
 ## Evaluation
 
 To evaluate AST-T5's performance on HumanEval and MBPP benchmarks and reproduce our results, follow the evaluation instructions in [eval/README.md](eval/README.md).
+
+
+## Citation
+
+If you find the code and models useful for your research, please cite the following paper:
+
+```
+@article{
+    ast_t5,
+    title={{AST}-{T}5: Structure-Aware Pretraining for Code Generation and Understanding},
+    url={http://arxiv.org/abs/2401.03003},
+    DOI={10.48550/arXiv.2401.03003},
+    note={arXiv:2401.03003 [cs]},
+    number={arXiv:2401.03003},
+    publisher={arXiv},
+    author={Gong, Linyuan and Elhoushi, Mostafa and Cheung, Alvin},
+    year={2024}, month=jan
+}
+```
