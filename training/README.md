@@ -1,10 +1,4 @@
-# AST-T5
-
-Welcome to the repository for AST-T5.
-
-Paper: [AST-T5: Structure-Aware Pretraining for Code Generation and Understanding](https://arxiv.org/abs/2401.03003)
-
-Authors: Linyuan Gong, Mostafa Elhoushi, Alvin Cheung
+# AST-T5: Pretraining
 
 ## Dependencies
 
