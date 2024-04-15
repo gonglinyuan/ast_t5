@@ -207,7 +207,8 @@ def main():
         hyp_top1 = json.load(f)
     for i in range(len(hyp_top1)):
         hyp_top1[i]['completion'] = hyp_top1[i]['completion'][len('<sen001>'):]
-        hyp_top1[i]["_identifier"] = str(hyp_top1[i]["task_id"]) + f" (line {i + 1} in {args.out_path})"
+        hyp_top1[i]['task_id'] = "Mbpp/" + str(hyp_top1[i]["task_id"])
+        hyp_top1[i]["_identifier"] = hyp_top1[i]["task_id"] + f" (line {i + 1} in {args.out_path})"
     result, full_result = evaluate_functional_correctness(hyp_top1)
     for i in range(len(hyp_top1)):
         if i < 10:
