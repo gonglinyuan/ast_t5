@@ -166,7 +166,7 @@ def evaluate_functional_correctness(
         if (total >= k).all()
     }
     metrics["plus"] = pass_at_k
-    return result
+    return metrics, result
 
 
 def maybe_increase_indent(completion):
