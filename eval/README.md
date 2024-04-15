@@ -10,7 +10,7 @@ First, ensure you have Anaconda or Miniconda installed to manage environments. T
 conda create -n ast_t5 python=3.8.10
 conda install -n ast_t5 pytorch==1.12.1 torchvision==0.13.1 torchaudio==0.12.1 cudatoolkit=11.3 -c pytorch
 conda activate ast_t5
-python -m pip install transformers==4.36.0 "omegaconf<2.1" tiktoken==0.5.2 datasets human_eval pyarrow==8.0.0 astunparse
+python -m pip install transformers==4.36.0 "omegaconf<2.1" tiktoken==0.5.2 datasets human_eval pyarrow==8.0.0 astunparse evalplus
 ```
 
 ## Inference and Evaluation
