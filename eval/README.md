@@ -52,4 +52,6 @@ python evaluate_humaneval_plus.py astt5_humaneval_plus_outputs.json
 ```bash
 python run_mbpp_plus.py gonglinyuan/ast_t5_base \
 --out_path astt5_mbpp_plus_outputs.json
+
+python evaluate_mbpp_plus.py astt5_mbpp_plus_outputs  .json 
 ```
