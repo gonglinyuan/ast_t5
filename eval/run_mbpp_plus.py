@@ -71,7 +71,7 @@ def main():
     args = parser.parse_args()
 
     ds = datasets.load_dataset("evalplus/mbppplus")
-    m = list(ds['prompt']) + list(ds['train']) + list(ds['validation']) + list(ds['test'])
+    m = list(ds['test'])
     for mm in m:
         mm['humaneval_style_prompt'] = convert_mbpp_example(mm)
     raw_dataset = datasets.Dataset.from_list(m)
