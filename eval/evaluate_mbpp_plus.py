@@ -10,8 +10,8 @@ from warnings import warn
 
 import numpy as np
 from evalplus.data import (
-    get_human_eval_plus,
-    get_human_eval_plus_hash,
+    get_mbpp_plus,
+    get_mbpp_plus_hash,
 )
 from evalplus.data.mbpp import mbpp_serialize_inputs
 from evalplus.eval import PASS, estimate_pass_at_k
@@ -33,8 +33,8 @@ def evaluate_functional_correctness(
     sample_file,
     n_workers: int = 4
 ):
-    problems = get_human_eval_plus()
-    dataset_hash = get_human_eval_plus_hash()
+    problems = get_mbpp_plus()
+    dataset_hash = get_mbpp_plus_hash()
     expected_output = get_groundtruth(
         problems,
         dataset_hash,
