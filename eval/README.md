@@ -36,3 +36,12 @@ python run_mbpp.py gonglinyuan/ast_t5_base \
 python evaluate_mbpp.py mbpp_humaneval_outputs.json 
 # Expected output: {'pass@1': 0.2388758782201405}
 ```
+
+### HumanEvalPlus
+
+```bash
+python run_humaneval_plus.py gonglinyuan/ast_t5_base \
+--out_path astt5_humaneval_plus_outputs.json
+
+python evaluate_humaneval_plus.py astt5_humaneval_plus_outputs.json 
+```
