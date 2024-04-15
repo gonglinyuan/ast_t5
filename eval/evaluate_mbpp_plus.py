@@ -217,8 +217,8 @@ def main():
             print("------------------------------------------------------------")
             print(hyp_top1[i]['completion'])
             print("------------------------------------------------------------")
-            print("base:", full_result['eval'][i][0]['base_status'])
-            print("plus:", full_result['eval'][i][0]['plus_status'])
+            print("base:", full_result['eval'][i])
+            print("plus:", full_result['eval'][i])
             print("============================================================")
     print(result)
 
