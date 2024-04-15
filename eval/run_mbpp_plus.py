@@ -72,10 +72,11 @@ def main():
 
     ds = datasets.load_dataset("evalplus/mbppplus")
     m = list(ds['test'])
-    lst_task_ids = []
+    lst_task_ids, lst_eval_prompts = [], []
     for mm in m:
         mm['humaneval_style_prompt'] = convert_mbpp_example(mm)
         lst_task_ids.append(mm['task_id'])
+        lst_eval_prompts.append(mm['humaneval_style_prompt'])
     raw_dataset = datasets.Dataset.from_list(m)
 
     tokenizer = AutoTokenizer.from_pretrained(args.model_name_or_path, trust_remote_code=True)
@@ -125,7 +126,11 @@ def main():
                     skip_special_tokens=True,
                     clean_up_tokenization_spaces=False
                 )
-                outputs_top1.append({"task_id": lst_task_ids[task_id_ptr], "completion": hyp})
+                outputs_top1.append({
+                    "task_id": lst_task_ids[task_id_ptr],
+                    "humaneval_style_prompt": lst_eval_prompts[task_id_ptr],
+                    "completion": hyp
+                })
                 task_id_ptr += 1
 
     with open(args.out_path, "w", encoding="utf-8") as f:

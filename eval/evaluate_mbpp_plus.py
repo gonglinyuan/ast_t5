@@ -60,7 +60,7 @@ def evaluate_functional_correctness(
             solution = (
                 sample["solution"]
                 if "solution" in sample
-                else problems[task_id]["prompt"] + sample["completion"]
+                else sample["humaneval_style_prompt"] + sample["completion"] + "\n"
             )
             remainings.add(sample["_identifier"])
             args = (
