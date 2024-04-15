@@ -217,8 +217,8 @@ def main():
             print("------------------------------------------------------------")
             print(hyp_top1[i]['completion'])
             print("------------------------------------------------------------")
-            print("base:", full_result['eval'][f'Mbpp/{i}'][0]['base_status'])
-            print("plus:", full_result['eval'][f'Mbpp/{i}'][0]['plus_status'])
+            print("base:", full_result['eval'][hyp_top1[i]['task_id']][0]['base_status'])
+            print("plus:", full_result['eval'][hyp_top1[i]['task_id']][0]['plus_status'])
             print("============================================================")
     print(result)
 
